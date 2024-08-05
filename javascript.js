@@ -1,75 +1,91 @@
 function getComputerChoice() {
-  const choices = ["Rock", "Paper", "Scissors"];
   const randomNum = Math.floor(Math.random() * 3) + 1;
 
   switch (randomNum) {
     case 1:
-      return choices[0];
+      return "rock";
       break;
     case 2:
-      return choices[1];
+      return "paper";
       break;
     case 3:
-      return choices[2];
+      return "scissors";
       break;
   }
 }
 
-function getHumanChoice() {
-  const choices = ["rock", "paper", "scissors"];
-  let answer = "";
-  let validAnswer = false;
-  do {
-    answer = prompt("Rock, paper, scissors?");
-    let temp = answer.toLowerCase();
-    for (let i = 0; i < choices.length; i++) {
-      if (temp === choices[i]) {
-        validAnswer = true;
-      }
-    }
-  } while (validAnswer == false);
-  return answer;
-}
-
-function playGame(gameAmount) {
-  let humanScore = 0;
-  let computerScore = 0;
-  let draw = 0;
-
+function playGame(humanChoice, computerChoice) {
   function playRound(humanChoice, computerChoice) {
-    const human = humanChoice.toLowerCase();
-    const computer = computerChoice.toLowerCase();
-    if (human == computer) {
-      console.log(`It's a draw, ${human} and ${computer} are the same!`);
+    if (humanChoice == computerChoice) {
+      console.log(
+        `It's a draw, ${humanChoice} and ${computerChoice} are the same!`
+      );
       return (draw += 1);
     } else if (
-      (human == "rock" && computer == "scissors") ||
-      (human == "scissors" && computer == "paper") ||
-      (human == "paper" && computer == "rock")
+      (humanChoice == "rock" && computerChoice == "scissors") ||
+      (humanChoice == "scissors" && computerChoice == "paper") ||
+      (humanChoice == "paper" && computerChoice == "rock")
     ) {
-      console.log(`You win, ${human} beats ${computer}!`);
+      console.log(`You win, ${humanChoice} beats ${computerChoice}!`);
       return (humanScore += 1);
     } else {
-      console.log(`You lose, ${computer} beats ${human}!`);
+      console.log(`You lose, ${computerChoice} beats ${humanChoice}!`);
       return (computerScore += 1);
     }
   }
 
-  for (let i = 0; i < gameAmount; i++) {
-    let humanChoice = getHumanChoice();
-    let computerChoice = getComputerChoice();
-    playRound(humanChoice, computerChoice);
-  }
+  playRound(humanChoice, computerChoice);
 
-  if (humanScore == computerScore || draw > (humanScore || computerScore)) {
+  if (draw == 5) {
     console.log(`It's a draw! ${humanScore}/${computerScore}/${draw}`);
-  } else if (humanScore < computerScore) {
+    draw = 0;
+    computerScore = 0;
+    humanScore = 0;
+  } else if (computerScore == 5) {
     console.log(`Computer wins! ${computerScore}/${humanScore}/${draw}`);
-  } else if (humanScore > computerScore) {
+    draw = 0;
+    computerScore = 0;
+    humanScore = 0;
+  } else if (humanScore == 5) {
     console.log(`Human wins! ${humanScore}/${computerScore}/${draw}`);
+    draw = 0;
+    computerScore = 0;
+    humanScore = 0;
   }
 }
 
-const gameAmount = prompt("How many games would you like to play?");
+const rockButton = document.querySelector(".rockButton");
+const paperButton = document.querySelector(".paperButton");
+const scissorsButton = document.querySelector(".scissorsButton");
 
-console.log(playGame(gameAmount));
+let humanChoice = "";
+let computerChoice = "";
+
+let humanScore = 0;
+let computerScore = 0;
+let draw = 0;
+
+rockButton.addEventListener("click", () => {
+  humanChoice = "rock";
+  computerChoice = getComputerChoice();
+
+  playGame(humanChoice, computerChoice);
+});
+paperButton.addEventListener("click", () => {
+  humanChoice = "paper";
+  computerChoice = getComputerChoice();
+
+  playGame(humanChoice, computerChoice);
+});
+scissorsButton.addEventListener("click", () => {
+  humanChoice = "scissors";
+  computerChoice = getComputerChoice();
+
+  playGame(humanChoice, computerChoice);
+});
+
+/*
+variable of buttons are assigned
+if button pressed then the game starts
+it only stops when someone gets 5 points or draws at 5
+*/
