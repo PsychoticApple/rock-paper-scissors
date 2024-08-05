@@ -18,12 +18,21 @@ function playGame(humanChoice, computerChoice) {
   const winText = document.querySelector(".winner");
   const winMethod = document.querySelector(".method");
 
+  const humScore = document.querySelector(".humScore");
+  const compScore = document.querySelector(".compScore");
+  const drawScore = document.querySelector(".drawScore");
+
   function playRound(humanChoice, computerChoice) {
     if (humanChoice == computerChoice) {
       winText.textContent = `It's a draw!`;
       winMethod.textContent = `${humanChoice} and ${computerChoice} are the same!`;
       console.log(humanScore, computerScore, draw);
+
       draw += 1;
+
+      humScore.textContent = `Human: ${humanScore}`;
+      compScore.textContent = `Computer: ${computerScore}`;
+      drawScore.textContent = `Draw: ${draw}`;
     } else if (
       (humanChoice == "rock" && computerChoice == "scissors") ||
       (humanChoice == "scissors" && computerChoice == "paper") ||
@@ -32,12 +41,22 @@ function playGame(humanChoice, computerChoice) {
       winText.textContent = `You win!`;
       winMethod.textContent = `${humanChoice} beats ${computerChoice}!`;
       console.log(humanScore, computerScore, draw);
+
       humanScore += 1;
+
+      humScore.textContent = `Human: ${humanScore}`;
+      compScore.textContent = `Computer: ${computerScore}`;
+      drawScore.textContent = `Draw: ${draw}`;
     } else {
       winText.textContent = `You lose!`;
       winMethod.textContent = `${computerChoice} beats ${humanChoice}!`;
       console.log(humanScore, computerScore, draw);
+
       computerScore += 1;
+
+      humScore.textContent = `Human: ${humanScore}`;
+      compScore.textContent = `Computer: ${computerScore}`;
+      drawScore.textContent = `Draw: ${draw}`;
     }
   }
 
@@ -46,18 +65,33 @@ function playGame(humanChoice, computerChoice) {
   if (draw == 5) {
     winText.textContent = "IT'S A DRAW!";
     winMethod.textContent = `${humanScore}/${computerScore}/${draw}`;
+
+    humScore.textContent = `Human: ${humanScore}`;
+    compScore.textContent = `Computer: ${computerScore}`;
+    drawScore.textContent = `Draw: ${draw}`;
+
     draw = 0;
     computerScore = 0;
     humanScore = 0;
   } else if (computerScore == 5) {
     winText.textContent = "COMPUTER WINS!";
     winMethod.textContent = `${humanScore}/${computerScore}/${draw}`;
+
+    humScore.textContent = `Human: ${humanScore}`;
+    compScore.textContent = `Computer: ${computerScore}`;
+    drawScore.textContent = `Draw: ${draw}`;
+
     draw = 0;
     computerScore = 0;
     humanScore = 0;
   } else if (humanScore == 5) {
     winText.textContent = "HUMAN WINS!";
     winMethod.textContent = `${humanScore}/${computerScore}/${draw}`;
+
+    humScore.textContent = `Human: ${humanScore}`;
+    compScore.textContent = `Computer: ${computerScore}`;
+    drawScore.textContent = `Draw: ${draw}`;
+
     draw = 0;
     computerScore = 0;
     humanScore = 0;
