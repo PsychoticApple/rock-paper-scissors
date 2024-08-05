@@ -15,39 +15,49 @@ function getComputerChoice() {
 }
 
 function playGame(humanChoice, computerChoice) {
+  const winText = document.querySelector(".winner");
+  const winMethod = document.querySelector(".method");
+
   function playRound(humanChoice, computerChoice) {
     if (humanChoice == computerChoice) {
-      console.log(
-        `It's a draw, ${humanChoice} and ${computerChoice} are the same!`
-      );
-      return (draw += 1);
+      winText.textContent = `It's a draw!`;
+      winMethod.textContent = `${humanChoice} and ${computerChoice} are the same!`;
+      console.log(humanScore, computerScore, draw);
+      draw += 1;
     } else if (
       (humanChoice == "rock" && computerChoice == "scissors") ||
       (humanChoice == "scissors" && computerChoice == "paper") ||
       (humanChoice == "paper" && computerChoice == "rock")
     ) {
-      console.log(`You win, ${humanChoice} beats ${computerChoice}!`);
-      return (humanScore += 1);
+      winText.textContent = `You win!`;
+      winMethod.textContent = `${humanChoice} beats ${computerChoice}!`;
+      console.log(humanScore, computerScore, draw);
+      humanScore += 1;
     } else {
-      console.log(`You lose, ${computerChoice} beats ${humanChoice}!`);
-      return (computerScore += 1);
+      winText.textContent = `You lose!`;
+      winMethod.textContent = `${computerChoice} beats ${humanChoice}!`;
+      console.log(humanScore, computerScore, draw);
+      computerScore += 1;
     }
   }
 
   playRound(humanChoice, computerChoice);
 
   if (draw == 5) {
-    console.log(`It's a draw! ${humanScore}/${computerScore}/${draw}`);
+    winText.textContent = "IT'S A DRAW!";
+    winMethod.textContent = `${humanScore}/${computerScore}/${draw}`;
     draw = 0;
     computerScore = 0;
     humanScore = 0;
   } else if (computerScore == 5) {
-    console.log(`Computer wins! ${computerScore}/${humanScore}/${draw}`);
+    winText.textContent = "COMPUTER WINS!";
+    winMethod.textContent = `${humanScore}/${computerScore}/${draw}`;
     draw = 0;
     computerScore = 0;
     humanScore = 0;
   } else if (humanScore == 5) {
-    console.log(`Human wins! ${humanScore}/${computerScore}/${draw}`);
+    winText.textContent = "HUMAN WINS!";
+    winMethod.textContent = `${humanScore}/${computerScore}/${draw}`;
     draw = 0;
     computerScore = 0;
     humanScore = 0;
